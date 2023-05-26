@@ -1,16 +1,21 @@
 package com.example.usermanagment.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.usermanagment.GuestList
 import com.example.usermanagment.MainActivity
 import com.example.usermanagment.R
 import com.example.usermanagment.database.Guest
 import com.example.usermanagment.database.guestDatabase
 import com.example.usermanagment.database.repositories.GuestRepository
+import com.example.usermanagment.updateGuest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +30,8 @@ class GuestAdapter: RecyclerView.Adapter<GuestAdapter.MyViewHolder>() {
         val id: TextView =itemView.findViewById(R.id.id_txt)
         val name:TextView=itemView.findViewById(R.id.name)
         val roomNumber:TextView=itemView.findViewById(R.id.room_number)
-        val deleteBtn:Button=itemView.findViewById(R.id.deleteBtn)
+        val deleteBtn:ImageView=itemView.findViewById(R.id.deleteBtn)
+        val updateBtn:ImageView=itemView.findViewById(R.id.updateBtn)
 
 
 
@@ -51,8 +57,31 @@ class GuestAdapter: RecyclerView.Adapter<GuestAdapter.MyViewHolder>() {
             CoroutineScope(Dispatchers.Main).launch {
                 repository.delete(guestList[position])
             }
+//pawani
+
+        }
+
+        holder.updateBtn.setOnClickListener {
+
+            val context = holder.itemView.context
+            Toast.makeText(context,"${guest}",Toast.LENGTH_LONG)
+                .show()
+
+     val intent = Intent(context, updateGuest::class.java)
+            intent.putExtra("nic", guestList[position].nic)
+            intent.putExtra("id", (guestList[position].id).toString())
+            intent.putExtra("name", guestList[position].guestName)
+            intent.putExtra("address", guestList[position].guestAddress)
+            intent.putExtra("price", (guestList[position].roomPrice).toString())
+            intent.putExtra("number", ( guestList[position].roomNumber).toString())
 
 
+
+
+
+
+
+            context.startActivity(intent)
         }
 
 
@@ -68,3 +97,5 @@ class GuestAdapter: RecyclerView.Adapter<GuestAdapter.MyViewHolder>() {
         notifyDataSetChanged()
     }
 }
+
+

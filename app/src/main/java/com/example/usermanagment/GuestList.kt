@@ -3,6 +3,8 @@ package com.example.usermanagment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.widget.SearchView
+
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,7 @@ class GuestList : AppCompatActivity() {
 
     private lateinit var actionBtn:FloatingActionButton
     private  lateinit var repository:GuestRepository
+    private lateinit var searchView:SearchView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +32,68 @@ class GuestList : AppCompatActivity() {
         val adapter=GuestAdapter()
         recyclerView.adapter=adapter
         recyclerView.layoutManager=LinearLayoutManager(this)
+        searchView=findViewById(R.id.searchbar)
+
+
+        searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+//
+              if(query==null) {
+
+                  lifecycleScope.launch(Dispatchers.IO) {
+                      val allData = repository.readAllData // Assuming readAllData is a LiveData<List<Guest>>
+                      withContext(Dispatchers.Main) {
+                          allData.observe(this@GuestList) { guests ->
+                              adapter.setData(guests)
+                          }
+                      }
+                  }
+
+
+
+              }
+                searchView.clearFocus()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.Main) {
+                        query?.let { repository.searchDatabase(it) }
+                            ?.observe(this@GuestList) { guests ->
+                                adapter.setData(guests)
+                            }
+                    }
+                }
+
+              return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(newText==null) {
+
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val allData = repository.readAllData // Assuming readAllData is a LiveData<List<Guest>>
+                        withContext(Dispatchers.Main) {
+                            allData.observe(this@GuestList) { guests ->
+                                adapter.setData(guests)
+                            }
+                        }
+                    }
+
+
+
+                }
+                lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.Main) {
+                        newText?.let { repository.searchDatabase(it) }
+                            ?.observe(this@GuestList) { guests ->
+                                adapter.setData(guests)
+                            }
+                    }
+                }
+
+                return false
+            }
+
+
+        })
 
 
         lifecycleScope.launch(Dispatchers.IO) {

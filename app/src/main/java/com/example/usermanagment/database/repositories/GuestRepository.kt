@@ -14,5 +14,13 @@ class GuestRepository(private val db:guestDatabase) {
 
     suspend fun delete(guest: Guest) = db.guestDao().delete(guest)
 
+    suspend fun update(guest: Guest)=db.guestDao().update(guest)
+
+    fun searchDatabase(searchQuery:String):LiveData<List<Guest>>{
+
+        return  db.guestDao().searchDatabase(searchQuery)
+
+    }
+
 
 }

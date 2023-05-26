@@ -3,14 +3,14 @@
 
   <corners
 
-      android:radius="@dimen/homeSearchRadius"
+      android:radius="10dp"
 
 
 
       />
     <stroke
-        android:color="@color/searchBar"
-        android:width="5dp"
+        android:color="@color/purple_700"
+        android:width="2dp"
 
 
         />

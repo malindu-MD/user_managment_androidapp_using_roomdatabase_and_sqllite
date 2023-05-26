@@ -79,7 +79,9 @@ class MainActivity : AppCompatActivity() {
 
                 startActivity(intent)
             }
+            intent = Intent(this, GuestList::class.java)
 
+            startActivity(intent)
 
             //
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:weightSum="10"
+    android:weightSum="11"
     android:background="@color/backgreen"
     tools:context=".GuestList">
 
@@ -16,6 +16,24 @@
         android:layout_height="75dp">
 
         <include layout="@layout/seller_product_tool_bar" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+
+        android:layout_height="75dp">
+
+     <androidx.appcompat.widget.SearchView
+         android:layout_width="match_parent"
+         android:layout_margin="5dp"
+         android:background="@drawable/custom_search_background"
+         android:id="@+id/searchbar"
+
+         android:layout_height="wrap_content">
+
+
+     </androidx.appcompat.widget.SearchView>
 
     </LinearLayout>
     <LinearLayout
@@ -70,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
 
-        android:layout_height="85dp">
+        android:layout_height="95dp">
        <androidx.constraintlayout.widget.ConstraintLayout
            android:layout_width="match_parent"
 
@@ -80,15 +98,15 @@
                android:id="@+id/floatingActionButton2"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:layout_marginEnd="36dp"
+               android:layout_marginEnd="16dp"
                android:layout_weight="1"
                android:backgroundTint="@color/purple_700"
                android:clickable="true"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintVertical_bias="0.457"
-               app:srcCompat="@drawable/addicon" />
+               app:srcCompat="@drawable/addicon"
+               tools:ignore="SpeakableTextPresentCheck" />
 
        </androidx.constraintlayout.widget.ConstraintLayout>
 
