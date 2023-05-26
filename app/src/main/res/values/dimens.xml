@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <dimen name="toolbarSizeFont">26sp</dimen>
+    <dimen name="productCardTextSize">20sp</dimen>
+    <dimen name="normalTextViewSize">25sp</dimen>
+    <dimen name="categoryTextSize">15sp</dimen>
+    <dimen name="dashBoardTextSize">23sp</dimen>
+    <dimen name="sellerToolbarSize">18sp</dimen>
+    <dimen name="customInputConorRadius">45dp</dimen>
+    <dimen name="homeSearchRadius">20dp</dimen>
+
+</resources>
